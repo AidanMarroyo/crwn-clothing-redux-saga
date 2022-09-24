@@ -37,7 +37,7 @@ const Navigation = () => {
           {/* This says that if there is a currentUser signed in then change to 'SIGN OUT' if there is no logged in user, display 'SIGN IN' */}
           {currentUser ? (
             <NavLink as="span" onClick={signOutUser}>
-              SIGN OUT
+              {`HELLO ${currentUser.displayName.toUpperCase()} | SIGN OUT`}
             </NavLink>
           ) : (
             <NavLink to="/auth">SIGN IN</NavLink>
