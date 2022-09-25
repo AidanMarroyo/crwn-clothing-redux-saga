@@ -66,3 +66,10 @@ export const signOutFailed = (error) => {
     payload: error,
   }
 }
+
+export const setIsDropdownOpen = (boolean) => {
+  return {
+    type: USER_ACTION_TYPES.SET_IS_DROPDOWN_OPEN,
+    payload: boolean,
+  }
+}

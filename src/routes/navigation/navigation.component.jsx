@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Fragment } from 'react'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectCartOpen } from '../../store/cart/cart-selector'
 
 import CartIcon from '../../components/cart-icon/cart-icon.component'
@@ -13,8 +13,12 @@ import {
   NavLinksContainer,
   NavLink,
 } from './navigation.styles.jsx'
-import { userSelector } from '../../store/user/user-selector'
-import { signOutStart } from '../../store/user/user-actions'
+import {
+  selectDropdownOpen,
+  userSelector,
+} from '../../store/user/user-selector'
+import SignedIn from '../../components/signed-in-user/signed-in-user.component'
+import UserDropdown from '../../components/user-dropdown/user-dropdown.component'
 
 const Navigation = () => {
   //useSelector is a hook that allows us to interact from a component with the redux store
@@ -22,8 +26,7 @@ const Navigation = () => {
   //A selector function extracts off the values that you want from the redux store
   const currentUser = useSelector(userSelector)
   const isCartOpen = useSelector(selectCartOpen)
-  const dispatch = useDispatch()
-  const signOutUser = () => dispatch(signOutStart())
+  const isDropdownOpen = useSelector(selectDropdownOpen)
 
   return (
     <Fragment>
@@ -35,15 +38,10 @@ const Navigation = () => {
           <NavLink to="/shop">SHOP</NavLink>
 
           {/* This says that if there is a currentUser signed in then change to 'SIGN OUT' if there is no logged in user, display 'SIGN IN' */}
-          {currentUser ? (
-            <NavLink as="span" onClick={signOutUser}>
-              {`HELLO ${currentUser.displayName.toUpperCase()} | SIGN OUT`}
-            </NavLink>
-          ) : (
-            <NavLink to="/auth">SIGN IN</NavLink>
-          )}
+          {currentUser ? <SignedIn /> : <NavLink to="/auth">SIGN IN</NavLink>}
           <CartIcon className="nav-link" />
         </NavLinksContainer>
+        {isDropdownOpen && currentUser && <UserDropdown />}
         {isCartOpen && <CartDropdown />}
         {/* The double && (short circuit operator) means that if the total line above evaluates to true (components can be truthy thats why they are functional components) then display the component CartDropdown, if not show nothing */}
       </NavigationContainer>

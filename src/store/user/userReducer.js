@@ -4,6 +4,7 @@ const USER_INITIAL_STATE = {
   currentUser: null,
   isLoading: false,
   error: null,
+  isDropdownOpen: false,
 }
 
 //Reducers change the object and values inside them based on the action also returns back current state
@@ -30,6 +31,11 @@ export const userReducer = (state = USER_INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: null,
+      }
+    case USER_ACTION_TYPES.SET_IS_DROPDOWN_OPEN:
+      return {
+        ...state,
+        isDropdownOpen: payload,
       }
 
     case USER_ACTION_TYPES.SIGN_IN_FAILED:
