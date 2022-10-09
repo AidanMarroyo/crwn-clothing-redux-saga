@@ -40,9 +40,7 @@ const Checkout = () => {
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <Total>${cartTotal}</Total>
-      {cartItems.map((cartItem) => (
-        <PaymentForm cartItem={cartItem} />
-      ))}
+      <PaymentForm />
     </CheckoutContainer>
   )
 }

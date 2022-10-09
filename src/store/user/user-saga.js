@@ -91,6 +91,10 @@ export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
   yield call(getSnapshotFromUserAuth, user, additionalDetails)
 }
 
+export function* updateProfile({ payload: { user, additionalDetails } }) {
+  yield call(getSnapshotFromUserAuth, user, additionalDetails)
+}
+
 // ** ENTRY POINT SAGAS START ** //
 export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle)
@@ -116,6 +120,9 @@ export function* onSignOutStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut)
 }
 
+export function* onProfileUpdate() {
+  yield takeLatest(USER_ACTION_TYPES.UPDATE_PROFILE_START, updateProfile)
+}
 export function* userSaga() {
   yield all([
     call(onCheckUserSession),
@@ -124,5 +131,6 @@ export function* userSaga() {
     call(onSignUpStart),
     call(onSignUpSuccess),
     call(onSignOutStart),
+    call(onProfileUpdate),
   ])
 }

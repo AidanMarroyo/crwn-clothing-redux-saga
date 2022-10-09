@@ -10,23 +10,25 @@ import { useDispatch } from 'react-redux'
 import { checkUserSession } from './store/user/user-actions'
 
 import Shop from './routes/shop/shop.component'
+import Profile from './routes/profile/profile.component'
 const App = () => {
   const dispatch = useDispatch()
 
-  //Use effect is used so that the listener is mounted just once and can only be mounted when the dependent is set. In this case there is none
+  //Use effect is used so that the listener is mounted just once and can only be mounted again when the dependent is set. In this case there is none
   useEffect(() => {
     dispatch(checkUserSession())
   }, [])
   return (
     <Routes>
-      <Route path='/' element={<Navigation />}>
+      <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
         {/* index is the component that displays with the parent component when the
         path is '/' */}
 
-        <Route path='shop/*' element={<Shop />} />
-        <Route path='auth' element={<Authentication />} />
-        <Route path='checkout' element={<Checkout />} />
+        <Route path="shop/*" element={<Shop />} />
+        <Route path="auth" element={<Authentication />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>
   )

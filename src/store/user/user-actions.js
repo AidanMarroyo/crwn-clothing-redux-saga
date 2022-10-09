@@ -73,3 +73,10 @@ export const setIsDropdownOpen = (boolean) => {
     payload: boolean,
   }
 }
+
+export const updateProfileStart = (user, additionalDetails) => {
+  return {
+    type: USER_ACTION_TYPES.UPDATE_PROFILE_START,
+    payload: { user, additionalDetails },
+  }
+}

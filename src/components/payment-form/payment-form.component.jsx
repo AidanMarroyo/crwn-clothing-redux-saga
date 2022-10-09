@@ -20,7 +20,7 @@ import {
 } from './payment-form.styles'
 import { clearItemFromCart } from '../../store/cart/cart-actions'
 
-const PaymentForm = ({ cartItem }) => {
+const PaymentForm = () => {
   const stripe = useStripe()
   const elements = useElements()
   const amount = useSelector(selectCartTotal)
@@ -74,7 +74,9 @@ const PaymentForm = ({ cartItem }) => {
         alert('Payment Successful')
       }
       if (paymentResult.paymentIntent.status === 'succeeded') {
-        dispatch(clearItemFromCart(cartItems, cartItem))
+        cartItems.map((cartItem) =>
+          dispatch(clearItemFromCart(cartItems, cartItem))
+        )
       }
     }
   }
